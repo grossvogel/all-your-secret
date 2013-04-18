@@ -1,0 +1,113 @@
+@import "reset";
+@import "font-awesome";
+@import "utilities";
+
+/**
+*	variables
+*/
+$dark-gray: #383838;
+$light-blue: #b4e0e8;
+$red: #f20505;
+$white: #fff;
+$light-gray: #f2f2f2;
+
+/**
+*	global styles
+*/
+	body{
+		@include gradient-horiz-three(darken($light-blue, 10%), $light-blue, lighten($light-blue, 5%));
+		color:$dark-gray;
+		font-size:18px;
+		line-height:1.4;
+	}
+	body, textarea, input{
+		font-family:'Merriweather Sans', sans-serif;
+	}
+	h1, h2{	font-family:'Racing Sans One', sans-serif; font-weight:normal; }
+	h1{	font-size:2em;	}
+	h2{	font-size:1.8em;}
+	h3{	font-size:1.4em;}
+	h3{	font-size:1.2em;}
+	.explanation{
+		font-size:0.7em;
+	}
+	input.text, textarea{
+		border:0;
+		padding:8px;
+	}
+	textarea{
+		display:block;
+	}
+
+/**
+*	shared layout
+*/
+	html, body, #page, #sidebar{
+		height:100%;
+	}
+	#sidebar{
+		width:310px;
+		float:left;
+		margin-left:100px;
+		padding-left: 34px;
+	}
+	#main{
+		width:500px;
+		float:left;
+		margin-left: 40px;
+	}
+	#sidebar, #main{
+		padding-top: 200px;
+	}
+
+/**
+*	shared page elements
+*/
+	#sidebar{
+		@include gradient-horiz-three(darken($dark-gray, 2%), lighten($dark-gray, 4%), darken($dark-gray, 2%));
+		border-left:1px solid (lighten($dark-gray, 30%));
+		border-right:1px solid (lighten($dark-gray, 30%));
+		color:$light-gray;
+	}
+	#sidebar ol{
+		width:250px;
+		margin-left: 24px;
+	}
+	#sidebar ol p{
+		margin-bottom:12px;
+	}
+	#sidebar li{
+		margin: 24px 0;
+	}
+
+/**
+*	BEGIN SPECIFIC PAGE STYLES
+*/
+	/*	secret entry form	*/
+	#secret_form, #raw_secret{
+		width:650px;
+	}
+	input.password{
+		width:400px;
+	}
+	/*	encryption success popup	*/
+	.fancybox-skin{
+		background: $light-blue;
+	}
+	#finish_info{
+		/*width: 600px;*/
+	}
+	#finish_info .label{
+
+		margin-top:12px;
+	}
+	#finish_info .value{
+		background:$dark-gray;
+		color:$light-gray;
+		padding: 3px 8px;
+		font-weight:bold;
+		font-family:monospace;
+		margin-bottom: 20px;
+		font-size:0.7em;
+	}
+

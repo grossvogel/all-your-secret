@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<meta name="robots" content="noindex">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title><%= @title %></title>
+		<link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.4" type="text/css" media="screen">
+		<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans|Racing+Sans+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+	</head> 
+	<body> 
+
+		<div id="page">
+			<div id="sidebar">
+				<h1 title="are belong to... you">All Your Secret</h1>
+				<ol>
+					<li>
+						<h3>Encrypt your secret</h3>
+						<p class="explanation">
+							Encryption is done in your browser,
+							and only the cipher text is uploaded.
+						</p>
+					</li>
+					<li>
+						<h3>Share your secret</h3>
+						<p class="explanation">
+							Pass on the unique URL and password
+							to share your secret with others.
+						</p>	
+						<p class="explanation">
+							To keep your secret safe, you must
+							choose a good password and pass it on 
+							securely.
+						</p>	
+					</li>
+				</ol>
+				<p>Secrets expire in <%= $config[:secret_expiration_days] %> days.</p>
+			</div>
+			<div id="main">
+				<%= yield %>	
+			</div>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="/js/gibberish-aes.min.js"></script>
+		<script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.4"></script>
+		<script src="/js/main.js"></script>
+	</body>
+</html>

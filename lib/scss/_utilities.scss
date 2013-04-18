@@ -1,0 +1,75 @@
+.hidden{
+	display:none;
+}
+.clear{
+	float:none;
+	clear:both;
+	overflow:hidden;
+	height:1px;
+	width: 1px;
+	display:block;
+}
+.clickable{		cursor:pointer;	}
+.rounded-corners{
+	border:1px solid #ccc;
+}
+@mixin rounded ($radius : 6px){
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius; 
+	border-radius: $radius;
+}
+@mixin shadow ($shadows : 2px 2px 2px #777){
+	-moz-box-shadow: $shadows;
+	-webkit-box-shadow: $shadows;
+	box-shadow: $shadows;
+}
+@mixin gradient-horiz($from, $to) {
+	@include gradient-two($from, $to, 'left');
+}
+@mixin gradient-horiz-three($left, $middle, $right) {
+	@include gradient-three($left, $middle, $right, 'left');
+}
+@mixin gradient-two($from, $to, $start){
+  	background-color: $from;
+	background-image: linear-gradient($start, $from 0%, $to 100%);
+	background-image: -o-linear-gradient($start, $from 0%, $to 100%);
+	background-image: -moz-linear-gradient($start, $from 0%, $to 100%);
+	background-image: -webkit-linear-gradient($start, $from 0%, $to 100%);
+	background-image: -ms-linear-gradient($start, $from 0%, $to 100%);
+
+	@if $start == 'bottom' {
+		background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.0, $from),color-stop(1.0, $to));
+	} @else if $start == 'top' {
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0.0, $from),color-stop(1.0, $to));
+	} @else if $start == 'left' {
+		background-image: -webkit-gradient(linear,left top,right top,color-stop(0.0, $from),color-stop(1.0, $to));
+	} @else {
+		background-image: -webkit-gradient(linear,right top,left top,color-stop(0.0, $from),color-stop(1.0, $to));
+	}
+}
+@mixin gradient-three($one, $two, $three, $start)
+{
+  	background-color: $two;
+	background-image: linear-gradient($start, $one 0%, $two 50%, $three 100%);
+	background-image: -o-linear-gradient($start, $one 0%, $two 50%, $three 100%);
+	background-image: -moz-linear-gradient($start, $one 0%, $two 50%, $three 100%);
+	background-image: -webkit-linear-gradient($start, $one 0%, $two 50%, $three 100%);
+	background-image: -ms-linear-gradient($start, $one 0%, $two 50%, $three 100%);
+
+	@if $start == 'bottom' {
+		background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.0, $one),color-stop(0.5, $two),color-stop(1.0, $three));
+	} @else if $start == 'top' {
+		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0.0, $one),color-stop(0.5, $two),color-stop(1.0, $three));
+	} @else if $start == 'left' {
+		background-image: -webkit-gradient(linear,left top,right top,color-stop(0.0, $one),color-stop(0.5, $two),color-stop(1.0, $three));
+	} @else {
+		background-image: -webkit-gradient(linear,right top,left top,color-stop(0.0, $one),color-stop(0.5, $two),color-stop(1.0, $three));
+	}
+}
+
+.rounded-corners{
+	@include rounded;
+}
+.shadow{
+	@include shadow;
+}

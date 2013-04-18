@@ -1,0 +1,23 @@
+<div id="secret_form">
+	<textarea id="raw_secret" rows="20" cols="80" placeholder="put your secret here"></textarea>
+	<input type="text" class="text password" placeholder="put your long, random password here" id="encrypt_password">
+	<input type="button" id="encrypt_button" value="Encrypt and Share">
+</div>
+
+<div class="hidden">
+	<a href="#finish_info" id="show_finish_link">&nbsp;</a>
+	<div id="finish_info">
+		<h2>Success!</h2>
+		<h4>Your secret has been encrypted and is now ready to share:</h4>
+		<div>
+			<p class="label">Unique URL:</p>
+			<p class="value" id="show_secret_url">http://www.urlurl.com/longlongurlwithasecretkey</p>
+		</div>
+		<div>
+			<p class="label">Password:</p>
+			<p class="value" id="show_secret_key">password</p>
+		</div>
+		<p class="explanation">For best security, share the password over the phone or in person.</p>
+		<p class="explanation">Remember, your secret is only as safe as long as your password is strong and secure.</p>
+	</div>
+</div>
