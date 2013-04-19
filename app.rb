@@ -44,8 +44,12 @@ class App < Sinatra::Base
 	get '/secrets/:token' do
 		token = params[:token]
 		secret = Model::Secret.from_token(token)
-		@encrypted_secret = secret.encrypted
-		erb :secret
+		if secret.nil?
+			erb :file_not_found
+		else
+			@encrypted_secret = secret.encrypted
+			erb :secret
+		end
 	end
 
 	error 404 do
