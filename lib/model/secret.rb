@@ -14,30 +14,33 @@ module Model
 		def self.create(encrypted)
 			secret = nil
 			begin
-				mysql = MysqlConnection.get
+				db = DBConnection.get
 				query = %{
-					insert into Secret(Encrypted, Created)
-					values('#{mysql.escape(encrypted)}', NOW());
+					insert into secret(encrypted, created)
+					values('#{db.escape(encrypted)}', NOW());
 				}
-				mysql.query(query)
-				id = mysql.last_id
+				db.query(query)
+				id = db.last_id('Secret')
 				token = SecureRandom.hex(12) + id.to_s
 				query = %{
-					update Secret
-					set Token = '#{mysql.escape(token)}'
-					where ID = #{id}
+					update secret
+					set token = '#{db.escape(token)}'
+					where id = #{id}
 				}
-				mysql.query(query)
+				db.query(query)
 				query = %{
-					select Created 
-					from Secret
-					where ID = #{id}
+					select created 
+					from secret
+					where id = #{id}
 				}
-				rs = mysql.query(query)
-				created = rs.first['Created'] if rs.any?
+				created = nil
+				db.query(query) do |record|
+					puts record.inspect
+					created = record['created']
+				end
 				secret = new(id, token, encrypted, created)
 			ensure
-				mysql.close if mysql
+				db.close if db 
 			end
 			secret
 		end
@@ -45,19 +48,17 @@ module Model
 		def self.from_token(token)
 			secret = nil
 			begin
-				mysql = MysqlConnection.get
+				db = DBConnection.get
 				query = %{
 					select *
-					from Secret
-					where Token = '#{mysql.escape(token)}';
+					from secret
+					where token = '#{db.escape(token)}';
 				}
-				rs = mysql.query(query)
-				if rs.any?
-					row = rs.first
-					secret = new(row['ID'], row['Token'], row['Encrypted'], row['Created'])
+				db.query(query) do |record|
+					secret = new(record['id'], record['token'], record['encrypted'], record['created'])
 				end
 			ensure
-				mysql.close if mysql
+				db.close if db
 			end
 			secret
 		end
@@ -66,14 +67,14 @@ module Model
 			return unless days.is_a?(Integer)
 
 			begin
-				mysql = MysqlConnection.get
+				db = DBConnection.get
 				query = %{
-					delete from Secret
-					where Created is null or Created < now() - interval #{days.to_i} day;
+					delete from secret
+					where created is null or created < now() - interval '#{days.to_i} day';
 				}
-				mysql.query(query)
+				db.query(query)
 			ensure
-				mysql.close if mysql
+				db.close if db
 			end
 		end
 	end	

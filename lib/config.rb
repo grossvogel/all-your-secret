@@ -1,7 +1,8 @@
 $config = {
 	:database => {
+		:adapter => :pg,
 		:host => 'localhost',
-		:port => 3306,
+		:port => 5432,
 		:schema => 'all_your_secret',
 		:user => 'all_your_secret',
 		:password => 'asdfasoieface',
@@ -18,14 +19,14 @@ $config.each do |key, val|
 	$config[key] = ENV[key.to_s] if ENV.include?(key.to_s)
 end
 
-#	App Fog Database Configuration 
-if ENV['VCAP_SERVICES']
-	$creds = JSON.parse(ENV['VCAP_SERVICES'])['mysql-5.1'].first['credentials']
+if ENV['DATABASE_URL']
+	ENV['DATABASE_URL'] =~ %r|^postgres://(\S*):(\S*)@(\S*):(\S*)/(\S*)$|
 	$config[:database] = {
-		:host => $creds['host'],
-		:port => $creds['port'],
-		:schema => $creds['name'],
-		:user => $creds['user'],
-		:password => $creds['password'],
+		:adapter => :pg,
+		:host => $3,
+		:port => $4,
+		:schema => $5,
+		:user => $1,
+		:password => $2,
 	}
 end

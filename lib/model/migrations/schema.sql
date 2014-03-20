@@ -8,11 +8,11 @@ CREATE PROCEDURE fresh_schema() BEGIN
 		where COLUMN_NAME ='ID' and TABLE_NAME='Secret' and TABLE_SCHEMA=database()
 	)
 	then
-		create table `Secret` (
-			`ID` int(11) unsigned not null auto_increment,
-			`Encrypted` text not null,
-			`Token` varchar(255) null,
-			primary key(`ID`),
+		create table `secret` (
+			`id` int(11) unsigned not null auto_increment,
+			`encrypted` text not null,
+			`token` varchar(255) null,
+			primary key(`id`),
 			unique index unique_token(Token)
 		) engine=innodb;
 	end if;
